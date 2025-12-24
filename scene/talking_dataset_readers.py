@@ -236,6 +236,9 @@ def readCamerasFromTracksTransforms(path, meshfile, transformsfile, aud_features
         
     if custom_aud:
         auds = aud_features
+        # 🔥 FIX: 限制渲染帧数为音频长度，避免索引越界
+        frames = frames[:min(len(frames), aud_features.shape[0])]
+        print(f'[INFO] Custom audio mode: limiting render frames to {len(frames)} (audio length: {aud_features.shape[0]})')
     else:    
         auds = [aud_features[min(frame['aud_id'], aud_features.shape[0] - 1)] for frame in frames]
         auds = torch.stack(auds, dim=0)

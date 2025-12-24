@@ -141,7 +141,7 @@ def pure_conv_audio_to_deepspeech(audio,
     target_sample_rate = 16000
     if audio_sample_rate != target_sample_rate:
         resampled_audio = resampy.resample(
-            x=audio.astype(np.float),
+            x=audio.astype(np.float32),
             sr_orig=audio_sample_rate,
             sr_new=target_sample_rate)
     else:
